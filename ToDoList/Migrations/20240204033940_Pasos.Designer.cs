@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ToDoList.Models;
 
@@ -11,9 +12,11 @@ using ToDoList.Models;
 namespace ToDoList.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240204033940_Pasos")]
+    partial class Pasos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,37 +24,6 @@ namespace ToDoList.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("ToDoList.Models.Entidades.ArchivoAdjunto", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Orden")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TareaId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Titulo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .IsUnicode(true)
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TareaId");
-
-                    b.ToTable("ArchivosAdjuntos");
-                });
 
             modelBuilder.Entity("ToDoList.Models.Entidades.Paso", b =>
                 {
@@ -105,17 +77,6 @@ namespace ToDoList.Migrations
                     b.ToTable("Tareas");
                 });
 
-            modelBuilder.Entity("ToDoList.Models.Entidades.ArchivoAdjunto", b =>
-                {
-                    b.HasOne("ToDoList.Models.Entidades.Tarea", "Tarea")
-                        .WithMany("ArchivosAdjuntos")
-                        .HasForeignKey("TareaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Tarea");
-                });
-
             modelBuilder.Entity("ToDoList.Models.Entidades.Paso", b =>
                 {
                     b.HasOne("ToDoList.Models.Entidades.Tarea", "Tarea")
@@ -129,8 +90,6 @@ namespace ToDoList.Migrations
 
             modelBuilder.Entity("ToDoList.Models.Entidades.Tarea", b =>
                 {
-                    b.Navigation("ArchivosAdjuntos");
-
                     b.Navigation("Pasos");
                 });
 #pragma warning restore 612, 618

@@ -14,5 +14,7 @@ namespace ToDoList.Models.Entidades
         public string? Descripcion { get; set; }
         public int Orden { get; set; }
         public DateTime FechaCreacion { get; set; }
+        public List<Paso> Pasos { get; set; }
+        public List<ArchivoAdjunto> ArchivosAdjuntos { get; set; }
     }
 }
